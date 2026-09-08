@@ -18,7 +18,7 @@ Built with both **desktop and web experiences** in mind, HydroWeb aims to make s
 
 ## Features
 
-### 🕷️ Spider-Man Inspired Experience
+###  Spider-Man Inspired Experience
 
 * Spider-Man themed animated interface
 * Interactive visual overlays
@@ -255,7 +255,7 @@ See the `LICENSE` file for more information.
 
 ---
 
-## ⭐ Support
+##  Support
 
 If you like HydroWeb or find the project interesting, consider giving the repository a **star** on GitHub.
 
