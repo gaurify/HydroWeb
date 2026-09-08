@@ -1,0 +1,41 @@
+{
+  "name": "hydroweb",
+  "version": "1.0.0",
+  "description": "HydroWeb — A Spider-Man themed hydration reminder for Windows",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "web": "node server.js",
+    "package": "electron-packager . HydroWeb --platform=win32 --arch=x64 --out=dist --overwrite",
+    "build": "electron-builder --win"
+  },
+  "author": "HydroWeb",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0",
+    "electron-packager": "^17.1.2"
+  },
+  "dependencies": {
+    "appwrite": "^14.0.0",
+    "electron-store": "^10.0.0"
+  },
+  "build": {
+    "appId": "com.hydroweb.app",
+    "productName": "HydroWeb",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "src/assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "allowToChangeInstallationDirectory": false
+    },
+    "files": [
+      "src/**/*"
+    ]
+  }
+}
