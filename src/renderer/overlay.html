@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HydroWeb Reminder Overlay</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="overlay-body">
+  <main class="overlay-shell" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
+    <section class="overlay-card">
+      <div class="overlay-web"></div>
+      <h1 id="overlay-title">Hydration Check-In</h1>
+      <p id="overlay-message">Time to drink water 💧</p>
+      <div class="overlay-actions">
+        <button id="overlay-dismiss" class="btn btn-primary">Done</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const titleEl = document.getElementById('overlay-title');
+    const messageEl = document.getElementById('overlay-message');
+    const dismissBtn = document.getElementById('overlay-dismiss');
+
+    function playTone() {
+      try {
+        const audio = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audio.createOscillator();
+        const gain = audio.createGain();
+        oscillator.type = 'triangle';
+        oscillator.frequency.value = 610;
+        gain.gain.value = 0.03;
+        oscillator.connect(gain);
+        gain.connect(audio.destination);
+        oscillator.start();
+        oscillator.stop(audio.currentTime + 0.2);
+      } catch (e) {}
+    }
+
+    if (window.hydroweb && window.hydroweb.onOverlayShow) {
+      window.hydroweb.onOverlayShow((payload = {}) => {
+        if (payload.title) titleEl.textContent = payload.title;
+        if (payload.message) messageEl.textContent = payload.message;
+        if (payload.soundEnabled) playTone();
+      });
+    }
+
+    dismissBtn.addEventListener('click', () => {
+      if (window.hydroweb && window.hydroweb.dismissOverlay) {
+        window.hydroweb.dismissOverlay();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        dismissBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
